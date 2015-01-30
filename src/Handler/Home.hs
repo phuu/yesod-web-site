@@ -37,13 +37,21 @@ getHomeR = defaultLayout $ do
         
           <div .row-fluid>
             <div .span6>
+              <div .row-fluid>
                 <h2>Fibs
                 <p>
-                    Fib number
-                    <input #fibinput type=number value=4>
-                    is
-                    <span #fiboutput>
-                    
+                  Fib number
+                  <input #fibinput type=number value=4>
+                  is
+                  <span #fiboutput>
+              <div .row-fluid>
+                <h2>Factorial
+                <p>
+                  Factorial of
+                  <input #facinput type=number value=5>
+                  is
+                  <span #facoutput>
+                        
             <div .span6>
             
                 <h2>Markdown
@@ -79,6 +87,12 @@ getHomeR = defaultLayout $ do
                 $("#fiboutput").text(o.value);
             });
         }
+
+        function updateFac() {
+            $.getJSON("/fac/" + $("#facinput").val(), function (o) {
+                $("#facoutput").text(o.value);
+            });
+        }
         
         function updateMarkdown() {
             // Note the use of the MarkdownR Haskell data type here.
@@ -95,6 +109,9 @@ getHomeR = defaultLayout $ do
         $(function(){
             updateFib();
             $("#fibinput").change(updateFib);
+
+            updateFac();
+            $("#facinput").change(updateFac);
             
             updateMarkdown();
             $("#updatemarkdown").click(updateMarkdown);
